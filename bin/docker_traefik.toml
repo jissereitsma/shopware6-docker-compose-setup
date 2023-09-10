@@ -1,0 +1,44 @@
+[api]
+  dashboard = true
+  insecure = true
+
+[entryPoints.http]
+  address = ":80"
+
+[entryPoints.sw6webpack]
+  address = ":9998"
+
+[entryPoints.sw6livereload]
+  address = ":9999"
+
+[entryPoints.websecure]
+  address = ":443"
+
+[entryPoints.elasticsearch]
+  address = ":9200"
+
+[entryPoints.redis]
+  address = ":6379"
+
+[entryPoints.mysql]
+  address = ":3306"
+
+[services.sw6livereload]
+
+[providers.docker]
+  watch = true
+  network = "shopware"
+  endpoint = "unix:///var/run/docker.sock"
+  defaultRule = "Host(`{{ normalize .Name }}.yr`)"
+  exposedByDefault = false
+  allowEmptyServices = true
+
+[certificatesResolvers.lets-encrypt.acme]
+  email = "jisse@yireo.com"
+  storage = "acme.json"
+
+[certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+[log]
+  filePath = "/var/log/traefik.log"
+  level = "DEBUG"
